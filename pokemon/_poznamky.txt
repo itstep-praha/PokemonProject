@@ -1,0 +1,70 @@
+"""
+Dobré příklady:
+
+/pokemons/
+/pokemons/add/
+/pokemons/pikachu/
+/pokemons/pokachu/remove/
+/pokemons/pikachu/update/
+
+/cars/
+/cars/add/
+/cars/my-car/
+/cars/my-car/remove/
+/cars/my-car/update/
+
+
+list
+/
+
+detail
+/darek/10202/
+/darek/10202/vonna-svicka/
+/darek/vonna-svicka-10202/
+
+/darek/list/ - moje darky
+/darek/add/ - nový dárek
+/darek/10202/edit/ - editace (zobrazení i uložení)
+/darek/10202/delete/ - mazání
+
+
+youtube.com/
+youtube.com/feed/subscriptions/
+youtube.com/watch?v=87JKAIUSD87
+
+--------------------------------------------------
+
+List Of Pokemons
+/
+
+Detail Of Pokemon
+/23/
+/pikachu/
+
+Cantact Page
+/contact/
+
+About Page
+/about/
+
+"""
+
+
+
+"""
+čím konkrétnější url cesta tím by měla být více nahoře
+čím více dynamická, více dole
+"""
+
+# Tří vstvá architektura
+"""
+monolitická arch. - vše v jednom
+2. vrstvá arch - client + server (tlustý klient-logika)
+3. vrstvá arch - client + server + databáze (tenký klient, server-logika, databáze)
+
+nyní 3. vrstvá arch (hodně logiky v klientu - JS)
+"""
+
+# MVT - model, view, template
+# MVC - model, view, controller
+# URL - uniform resource locator
