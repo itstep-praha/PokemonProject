@@ -11,6 +11,7 @@ User = get_user_model()
 
 
 class Pokemon(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     image = models.ImageField(blank=True, null=True, upload_to='pokemon_images/')
     number = models.PositiveSmallIntegerField(unique=True)
     name = models.CharField(max_length=50, verbose_name='Název 1')

@@ -11,6 +11,8 @@ def test_view(request, **kwargs):
 urlpatterns = [
     path('', views.index_view),
     path('pokemon/', views.pokemon_list),
+    path('pokemon/create/', views.pokemon_create_view),
+    path('pokemon/user/', views.user_pokemon_list),
     path('pokemon/<slug:pokemon_slug>/', views.pokemon_detail),
 
 
