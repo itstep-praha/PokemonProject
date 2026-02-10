@@ -32,6 +32,10 @@ class Category(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
+    # pokemon.comment_set.all() nebo nastavím related_name='comments' tak pokemon.comments.all()
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField(max_length=500)
     create_dt = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-pk']

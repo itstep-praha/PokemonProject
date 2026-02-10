@@ -1,5 +1,5 @@
 from django import forms
-from pokemon.models import Pokemon
+from pokemon.models import Pokemon, Comment
 
 """
 1. vykreslení formuláře
@@ -17,3 +17,9 @@ class PokemonForm(forms.ModelForm):
     class Meta:
         model = Pokemon
         fields = ['number', 'name', 'categories']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']

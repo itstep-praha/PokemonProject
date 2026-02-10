@@ -1,8 +1,8 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 from pokemon.models import Pokemon
-from pokemon.forms import PokemonForm
+from pokemon.forms import PokemonForm, CommentForm
 
 
 def index_view(request):
@@ -43,6 +43,26 @@ def pokemon_list(request):
     return render(request, 'pokemon/pokemon_list.html', {'moje_jmeno': 'Nějaká hodnota', 'pokemons': pokemons})
 
 
-# @login_required
 def pokemon_detail(request, pokemon_slug):
-    return render(request, 'pokemon/pokemon_detail.html')
+    # pokemon = Pokemon.objects.get(pk=pk)
+    pokemon = get_object_or_404(Pokemon, slug=pokemon_slug)
+    comment_form = CommentForm()
+    return render(request, 'pokemon/pokemon_detail.html', {'pokemon': pokemon, 'comment_form': comment_form})
+
+
+# /pokemon/41/comment/
+
+@login_required
+def create_comment(request, pokemon_id):
+    pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
+
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.pokemon_id = pokemon_id
+        comment.user = request.user
+        comment.save()
+
+    return redirect(f'/pokemon/{pokemon.slug}/')
+
+

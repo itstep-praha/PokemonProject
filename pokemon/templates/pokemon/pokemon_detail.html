@@ -1,5 +1,45 @@
 {% extends 'pokemon/_base.html' %}
+{% load crispy_forms_tags %}
 
 {% block base_content %}
-<h1>Pokemon detail</h1>
+<h1>{{ pokemon.name }}</h1>
+
+{% if pokemon.image %}
+<img src="{{ pokemon.image.url }}" alt="">
+{% endif %}
+
+<ul>
+    {% for comment in pokemon.comments.all %}
+    <li>
+        {{ comment.user }} |
+        {{ comment.text }} |
+        {{ comment.create_dt }}
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add comment
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add comment</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/pokemon/{{ pokemon.pk }}/comment/">
+                    {% csrf_token %}
+                    {{ comment_form|crispy }}
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

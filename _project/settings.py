@@ -120,7 +120,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static/' # 's/' 'assets/'
+MEDIA_URL = 'media/' # na jaké adrese budou mediální soubory
+MEDIA_ROOT = BASE_DIR / '_media' # kde budou uložené mediální soubory
+
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
