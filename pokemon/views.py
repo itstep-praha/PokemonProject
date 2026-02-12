@@ -5,6 +5,7 @@ from pokemon.models import Pokemon
 from pokemon.forms import PokemonForm, CommentForm
 
 
+@login_required
 def index_view(request):
     return render(request, 'pokemon/index.html')
 
