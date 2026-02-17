@@ -70,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'pokemon.context_processors.base',
             ],
         },
     },
@@ -127,6 +128,13 @@ STATIC_URL = 'static/' # 's/' 'assets/'
 MEDIA_URL = 'media/' # na jaké adrese budou mediální soubory
 MEDIA_ROOT = BASE_DIR / '_media' # kde budou uložené mediální soubory
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        # "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
+}
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -136,3 +144,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+
+# LOGIN_REDIRECT_URL = '/some-page-login/'
+# LOGOUT_REDIRECT_URL = '/some-page-logout/'

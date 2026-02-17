@@ -8,9 +8,23 @@
     <title>Bootstrap demo</title>
     <link href="{% static 'pokemon/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script defer src="{% static 'pokemon/bootstrap.bundle.min.js' %}" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <style>
+        /* Selektor pro element, který se má skrolovat */
+        .no-scrollbar {
+            /* IE a Edge */
+            -ms-overflow-style: none;
+            /* Firefox */
+            scrollbar-width: none;
+        }
+
+        /* Chrome, Safari a Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 </head>
 
-<body>
+<body style="overflow-y: scroll;">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
             <a class="navbar-brand" href="/">
@@ -21,18 +35,24 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                    {% for item in nav_items %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link {% if request.path == item.url %} active {% endif %}" href="{{ item.url }}">{{ item.text }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pokémoni</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Můj účet</a>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
+    </nav>
+
+    <nav class="container">
+        <ul class="nav nav-pills flex-nowrap overflow-x-auto no-scrollbar">
+            {% for category in categories %}
+            <li class="nav-item">
+                <a class="nav-link" href="/pokemon/category/{{ category.slug }}/">{{ category.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
     </nav>
 
     <div class="container">

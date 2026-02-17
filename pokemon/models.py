@@ -17,6 +17,7 @@ class Pokemon(models.Model):
     name = models.CharField(max_length=50, verbose_name='Název 1')
     slug = models.SlugField(max_length=50, unique=True)
     categories = models.ManyToManyField('Category', blank=True)
+    create_dt = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.name

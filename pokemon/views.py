@@ -1,13 +1,18 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.views.decorators.cache import cache_page
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 from pokemon.models import Pokemon
 from pokemon.forms import PokemonForm, CommentForm
 
 
-@login_required
 def index_view(request):
     return render(request, 'pokemon/index.html')
+
+
+@login_required
+def profile_view(request):
+    return render(request, 'pokemon/profile.html')
 
 
 @login_required
@@ -15,7 +20,7 @@ def pokemon_create_view(request):
     if request.method == 'GET':
         form = PokemonForm()
     else:
-        form = PokemonForm(request.POST)
+        form = PokemonForm(request.POST, request.FILES)
 
         if form.is_valid():
             instance = form.save(commit=False) # form.save() vrací instanci
@@ -31,6 +36,23 @@ def pokemon_create_view(request):
 
 
 @login_required
+def pokemon_update_view(request, pokemon_id):
+    pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
+
+    if request.method == 'GET':
+        form = PokemonForm(instance=pokemon)
+    else:
+        form = PokemonForm(request.POST, request.FILES, instance=pokemon)
+
+        if form.is_valid():
+            instance = form.save()
+            return redirect('/pokemon/user/')
+        
+    return render(request, 'pokemon/pokemon_form.html', {'form': form})
+
+
+
+@login_required
 def user_pokemon_list(request):
     if request.user.groups.filter(name='A1').exists():
         pokemons = Pokemon.objects.filter(user=request.user)
@@ -39,6 +61,7 @@ def user_pokemon_list(request):
         return HttpResponse('K této akci nemáte přístup')
 
 
+@cache_page(60 * 60 * 24 * 30)
 def pokemon_list(request):
     pokemons = Pokemon.objects.all()
     return render(request, 'pokemon/pokemon_list.html', {'moje_jmeno': 'Nějaká hodnota', 'pokemons': pokemons})
