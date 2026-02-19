@@ -2,11 +2,13 @@
 {% load static %}
 
 {% block base_content %}
-<h1>Pokemon List</h1>
+<div class="my-3">
+    <h1 class="text-center">Pokemon List - page {{ page.number }}</h1>
+</div>
 
 <div class="row row-cols-auto gy-4 justify-content-center">
 
-    {% for pokemon in pokemons %}
+    {% for pokemon in page.object_list %}
     <div class="col">
 
         <div class="card" style="max-width: calc(320px - 1.5rem)">
@@ -27,6 +29,42 @@
 
 </div>
 
+<div class="my-4 d-flex gap-4 justify-content-center">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Per Page
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ per_page_url }}page=1&per_page=10">10</a></li>
+            <li><a class="dropdown-item" href="{{ per_page_url }}page=1&per_page=20">20</a></li>
+            <li><a class="dropdown-item" href="{{ per_page_url }}page=1&per_page=50">50</a></li>
+        </ul>
+    </div>
+
+    <nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if page.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="{{ paginator_url }}&page={{ page.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
+        {% for item in page_range %}
+        <li class="page-item {% if item == page.number %}active{% endif %}">
+            <a class="page-link" href="{{ paginator_url }}&page={{ item }}">{{ item }}</a>
+        </li>
+        {% endfor %}
+        {% if page.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="{{ paginator_url }}&page={{ page.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    </nav>
+</div>
 
 
 {% endblock %}
