@@ -10,19 +10,23 @@
 
     {% for pokemon in page.object_list %}
     <div class="col">
-
         <div class="card" style="max-width: calc(320px - 1.5rem)">
             {% if pokemon.image %}
             <img src="{{ pokemon.image.url }}" class="card-img-top" alt="...">
             {% else %}
             <img src="{% static 'pokemon/placeholder.svg' %}" class="card-img-top" alt="...">
             {% endif %}
+
             <div class="card-body">
-                <p class="card-text">{{ pokemon.number }} {{ pokemon.name }}</p>
+                <h2 class="fs-4">#{{ pokemon.number }} {{ pokemon.name }}</h2>
+                <div class="d-flex gap-2">
+                    {% for category in pokemon.categories.all %}
+                    <span class="badge text-bg-{{ category.bootstrap_color }}">{{ category.name }}</span>
+                    {% endfor %}
+                </div>
             </div>
             <a class="stretched-link" href="/pokemon/{{ pokemon.slug }}/"></a>
         </div>
-
     </div>
 
     {% endfor %}

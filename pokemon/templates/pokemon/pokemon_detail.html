@@ -4,6 +4,13 @@
 {% block base_content %}
 <h1>{{ pokemon.name }}</h1>
 
+<div class="d-flex gap-2">
+    {% for category in pokemon.categories.all %}
+    <span class="badge text-bg-{{ category.bootstrap_color }}">{{ category.name }}</span>
+    {% endfor %}
+</div>
+
+
 {% if pokemon.image %}
 <img src="{{ pokemon.image.url }}" alt="">
 {% endif %}

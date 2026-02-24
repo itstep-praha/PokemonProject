@@ -14,7 +14,7 @@ class Pokemon(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     image = models.ImageField(blank=True, null=True, upload_to='pokemon_images/')
     number = models.PositiveSmallIntegerField(unique=True)
-    name = models.CharField(max_length=50, verbose_name='Název 1')
+    name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
     categories = models.ManyToManyField('Category', blank=True)
     create_dt = models.DateTimeField(blank=True, null=True)
@@ -27,8 +27,39 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
 
+    class Meta:
+        ordering = ['slug']
+
     def __str__(self):
         return self.name
+    
+    @property
+    def bootstrap_color(self):
+        try:
+            return category_to_bootstrap_color[self.slug]
+        except KeyError:
+            return 'secondary'
+
+
+category_to_bootstrap_color = {
+    'grass': 'success',
+    'fire': 'danger',
+    'water': 'info',
+    'electric': 'warning',
+    'poison': 'secondary',
+    'ground': 'secondary',
+    'rock': 'secondary',
+    'bug': 'success',
+    'ghost': 'dark',
+    'steel': 'secondary',
+    'dragon': 'primary',
+    'psychic': 'danger',
+    'ice': 'info',
+    'fighting': 'danger',
+    'fairy': 'info',
+    'normal': 'secondary',
+    'flying': 'info',
+}
 
 
 class Comment(models.Model):
