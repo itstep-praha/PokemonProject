@@ -6,7 +6,7 @@
 
 <div class="d-flex gap-2">
     {% for category in pokemon.categories.all %}
-    <span class="badge text-bg-{{ category.bootstrap_color }}">{{ category.name }}</span>
+    <span class="badge" style="background: {{ category.color.bg }}; color: {{ category.color.text }};">{{ category.name }}</span>
     {% endfor %}
 </div>
 

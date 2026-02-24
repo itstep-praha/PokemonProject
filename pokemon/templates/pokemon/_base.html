@@ -49,7 +49,7 @@
         <ul class="nav nav-pills flex-nowrap overflow-x-auto no-scrollbar gap-1">
             {% for category in categories %}
             <li class="nav-item">
-                <a class="nav-link text-bg-{{ category.bootstrap_color }}" href="/pokemon/category/{{ category.slug }}/">{{ category.name }}</a>
+                <a class="nav-link" href="/pokemon/category/{{ category.slug }}/" style="background: {{ category.color.bg }}; color: {{ category.color.text }};">{{ category.name }}</a>
             </li>
             {% endfor %}
         </ul>
