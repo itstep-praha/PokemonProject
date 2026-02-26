@@ -23,7 +23,7 @@ urlpatterns = [
     path('', include('pokemon.urls')),
     path('test-app/', include('test_app.urls')),
     path('accounts/', include('allauth.urls')),
-    path('admin/', admin.site.urls),
+    path('pokemon-admin/', admin.site.urls),
 ]
 
 

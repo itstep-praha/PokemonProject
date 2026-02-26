@@ -132,8 +132,8 @@ MEDIA_ROOT = BASE_DIR / '_media' # kde budou uložené mediální soubory
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-        # "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        # "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
         "LOCATION": "unique-snowflake",
     }
 }
@@ -147,6 +147,13 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = ''
 
 # LOGIN_REDIRECT_URL = '/some-page-login/'
 # LOGOUT_REDIRECT_URL = '/some-page-logout/'

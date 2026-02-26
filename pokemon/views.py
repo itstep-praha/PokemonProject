@@ -63,7 +63,7 @@ def user_pokemon_list(request):
 
 @cache_page(60 * 60 * 24 * 30)
 def pokemon_list(request):
-    pokemons = Pokemon.objects.all()
+    pokemons = Pokemon.objects.only('name', 'slug', 'number', 'image', 'user').select_related('user').prefetch_related('categories').all()
 
     page_number = request.GET.get('page') or 1
     per_page = request.GET.get('per_page') or 24
