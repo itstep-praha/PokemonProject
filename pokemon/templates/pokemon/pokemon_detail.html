@@ -1,6 +1,10 @@
 {% extends 'pokemon/_base.html' %}
 {% load crispy_forms_tags %}
 
+{% block head_title %}{{ pokemon.name|capfirst }}{% endblock %}
+{% block head_desc %}{{ pokemon.name|capfirst }}{% endblock %}
+
+
 {% block base_content %}
 <h1>{{ pokemon.name|capfirst }}</h1>
 
@@ -13,7 +17,7 @@
 
 {% if pokemon.image %}
 <div class="my-2">
-    <img src="{{ pokemon.image.url }}" alt="" class="img-thumbnail">
+    <img src="{{ pokemon.image.url }}" alt="" class="img-thumbnail" width="475" height="475">
 </div>
 
 {% endif %}

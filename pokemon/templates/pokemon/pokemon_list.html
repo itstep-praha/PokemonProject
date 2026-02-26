@@ -1,6 +1,9 @@
 {% extends 'pokemon/_base.html' %}
 {% load static %}
 
+{% block head_title %}List of Pokemons{% endblock %}
+{% block head_desc %}Explore our comprehensive Pokédex list featuring all Pokémon species, including types, stats, and abilities. Find your favorite Pokémon and complete your collection today.{% endblock %}
+
 {% block base_content %}
 <div class="my-3">
     <h1 class="text-center">Pokemon List - page {{ page.number }}</h1>
@@ -12,7 +15,7 @@
     <div class="col">
         <div class="card" style="max-width: calc(320px - 1.5rem)">
             {% if pokemon.image %}
-            <img src="{{ pokemon.image.url }}" class="card-img-top" alt="...">
+            <img src="{{ pokemon.image.url }}" class="card-img-top" alt="" width="475" height="475" style="height: auto;" loading="lazy">
             {% else %}
             <img src="{% static 'pokemon/placeholder.svg' %}" class="card-img-top" alt="...">
             {% endif %}
@@ -25,7 +28,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <a class="stretched-link" href="/pokemon/{{ pokemon.slug }}/"></a>
+            <a class="stretched-link" href="/pokemon/{{ pokemon.slug }}/" aria-label="{{ pokemon.name }}"></a>
         </div>
     </div>
 
