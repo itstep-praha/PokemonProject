@@ -61,6 +61,53 @@ def user_pokemon_list(request):
         return HttpResponse('K této akci nemáte přístup')
 
 
+def pokemon_list_ajax(request):
+    return render(request, 'pokemon/pokemon_list_ajax.html')
+
+
+from django.http import JsonResponse
+
+def pokemon_list_json(request):
+    per_page = 30
+    startFrom = int(request.GET.get('startFrom') or 0)
+    until = startFrom + per_page
+
+    data = Pokemon.objects.values('name', 'number')
+    data = list(data[startFrom:until])
+
+    if len(data) < per_page:
+        next_url = None
+    else:
+        next_url = '/pokemon-json/?startFrom=' + str(until)
+
+    return JsonResponse({
+        'data': data,
+        'next': next_url,
+    })
+
+
+def pokemon_list_htmx(request):
+    return render(request, 'pokemon/pokemon_list_htmx.html')
+
+
+def pokemon_part_htmx(request):
+    per_page = 30
+    startFrom = int(request.GET.get('startFrom') or 0)
+    until = startFrom + per_page
+
+    data = Pokemon.objects.all()
+    data = list(data[startFrom:until])
+
+    if len(data) < per_page:
+        next_url = None
+    else:
+        next_url = '/pokemon-json/?startFrom=' + str(until)
+
+    return render(request, 'pokemon/include/pokemon_list.html', {
+        'object_list': data,
+    })
+
+
 @cache_page(60 * 60 * 24 * 30)
 def pokemon_list(request):
     pokemons = Pokemon.objects.only('name', 'slug', 'number', 'image', 'user').select_related('user').prefetch_related('categories').all()

@@ -1,0 +1,11 @@
+{% extends 'pokemon/_base.html' %}
+
+{% block base_content %}
+    <h1>HTMX based loading</h1>
+    
+    <div id="poke-list" class="row row-cols-auto gy-4 justify-content-center"></div>
+    <br><br>
+    <button class="btn btn-primary" hx-get="/pokemon-part-htmx/" hx-target="#poke-list">Load more pokemons</button>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script>
+{% endblock %}

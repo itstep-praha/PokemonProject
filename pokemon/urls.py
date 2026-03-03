@@ -11,6 +11,12 @@ def test_view(request, **kwargs):
 urlpatterns = [
     path('', views.index_view),
     path('pokemon/', views.pokemon_list),
+    path('pokemon-ajax/', views.pokemon_list_ajax), # ajax = asynchronní javascript a xml
+    path('pokemon-json/', views.pokemon_list_json),
+
+
+    path('pokemon-list-htmx/', views.pokemon_list_htmx), # ajax = asynchronní javascript a xml
+    path('pokemon-part-htmx/', views.pokemon_part_htmx),
 
     path('pokemon/create/', views.pokemon_create_view),
     path('pokemon/update/<int:pokemon_id>/', views.pokemon_update_view),

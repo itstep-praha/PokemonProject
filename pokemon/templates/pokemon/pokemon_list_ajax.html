@@ -1,0 +1,47 @@
+{% extends 'pokemon/_base.html' %}
+
+{% block base_content %}
+    <h1>Ajax based loading</h1>
+    <div id="poke-list"></div>
+    <button class="btn btn-primary" id="load-button">Load more pokemons</button>
+
+    <script>
+        // fetch vrátí promse -> příslib že něco dostane
+        // then pak reaguje na dokončený příslib a může s výsledkem něco dělat
+
+        const loadButton = document.getElementById('load-button');
+        let dataUrl = '/pokemon-json/';
+
+        loadButton.addEventListener('click', e => {
+            fetch(dataUrl)
+                .then(resp => {
+                    // console.log(resp);
+                    return resp.json();
+                })
+                .then(json => {
+                    // console.log(json);
+                    const parent = document.getElementById('poke-list');
+                    // console.log(parent);
+
+                    if (json.next) {
+                        dataUrl = json.next;
+                    } else {
+                        loadButton.setAttribute('disabled', '');
+                    }
+                    
+                    json.data.forEach(item => {
+                        // console.log(item);
+                        const div = renderPokemon(item);
+                        parent.appendChild(div);
+                    });
+
+                });
+        });
+
+        function renderPokemon(item) {
+            const div = document.createElement('div');
+            div.textContent =  '#' + item.number + ' ' + item.name;
+            return div;
+        }
+    </script>
+{% endblock %}
