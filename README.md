@@ -37,7 +37,7 @@ python manage.py runserver
 ```
 
 ## 🛢️ Load data
-Requires to create django superuser using:
+Requires to create django superuser using (follow instructions):
 ```
 python manage.py createsuperuser
 ```
