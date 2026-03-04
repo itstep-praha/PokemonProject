@@ -1,0 +1,25 @@
+# PokemonProject
+Web with Pokemon List, Detail, Comment, Admin, AllAuth
+
+## Instalation instructions
+Clone repository: `git clone https://github.com/itstep-praha/PokemonProject`
+
+Change dir: `cd PokemonProject`
+
+Create venv: `python -m venv .venv`
+
+Activate venv: `.venv/scripts/activate`
+
+Install requrements: `pip install -r requirements.txt`
+
+Run server: `python manage.py runserver`
+
+## Load data
+Requires to create django superuser using: `python manage.py createsuperuser`
+
+Run load data script `python manage.py shell`
+
+```
+>>> from pokemon.data.load_data import main
+>>> main()
+```
