@@ -16,7 +16,7 @@ https://learndjango.com/tutorials/20-django-packages-i-use-every-project
 class PokemonForm(forms.ModelForm):
     class Meta:
         model = Pokemon
-        fields = ['image', 'number', 'name', 'categories', 'create_dt']
+        fields = ['image', 'number', 'name', 'categories']
         widgets = {
             'create_dt': forms.DateTimeInput(attrs={'type': 'datetime-local'})
         }
