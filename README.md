@@ -49,3 +49,7 @@ python manage.py shell
 >>> from pokemon.data.load_data import main
 >>> main()
 ```
+
+## Pokemon Data & Image Source
+1. https://pokeapi.co/
+2. https://github.com/PokeAPI/pokeapi
