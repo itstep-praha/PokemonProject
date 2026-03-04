@@ -1,6 +1,6 @@
 # PokemonProject
-- Web with Pokemon List, Detail, Comment, Admin, AllAuth
-- Using Python, Django, Bootstrap
+- Web with Pokemon List, Detail, Comment, Admin and forms to add new Pokemon and Comment
+- Using Python, Django, Bootstrap, Django AllAuth
 - Data, Images included and responsive design
 
 ![Pokemon Porject Screenshot](pokemon-project.png)
