@@ -42,6 +42,11 @@ python manage.py runserver
 ```
 
 ## 🛢️ Load data
+Make Database Migrations:
+```
+python manage.py migrate
+```
+
 Requires to create django superuser using (follow instructions):
 ```
 python manage.py createsuperuser
