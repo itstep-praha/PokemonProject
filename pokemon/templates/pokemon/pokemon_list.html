@@ -1,12 +1,12 @@
 {% extends 'pokemon/_base.html' %}
 {% load static %}
 
-{% block head_title %}List of Pokemons{% endblock %}
+{% block head_title %}{{ title }}{% endblock %}
 {% block head_desc %}Explore our comprehensive Pokédex list featuring all Pokémon species, including types, stats, and abilities. Find your favorite Pokémon and complete your collection today.{% endblock %}
 
 {% block base_content %}
 <div class="my-3">
-    <h1 class="text-center">Pokemon List - page {{ page.number }}</h1>
+    <h1 class="text-center">{{ title }}- page {{ page.number }}</h1>
 </div>
 
 <div class="row row-cols-auto gy-4 justify-content-center">
@@ -19,9 +19,9 @@
             Per Page
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ per_page_url }}page=1&per_page=10">10</a></li>
-            <li><a class="dropdown-item" href="{{ per_page_url }}page=1&per_page=20">20</a></li>
-            <li><a class="dropdown-item" href="{{ per_page_url }}page=1&per_page=50">50</a></li>
+            <li><a class="dropdown-item" href="{{ per_page_url }}per_page=10">10</a></li>
+            <li><a class="dropdown-item" href="{{ per_page_url }}per_page=20">20</a></li>
+            <li><a class="dropdown-item" href="{{ per_page_url }}per_page=50">50</a></li>
         </ul>
     </div>
 
@@ -29,19 +29,19 @@
     <ul class="pagination">
         {% if page.has_previous %}
         <li class="page-item">
-            <a class="page-link" href="{{ paginator_url }}&page={{ page.previous_page_number }}" aria-label="Previous">
+            <a class="page-link" href="{{ paginator_url }}page={{ page.previous_page_number }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         {% endif %}
         {% for item in page_range %}
         <li class="page-item {% if item == page.number %}active{% endif %}">
-            <a class="page-link" href="{{ paginator_url }}&page={{ item }}">{{ item }}</a>
+            <a class="page-link" href="{{ paginator_url }}page={{ item }}">{{ item }}</a>
         </li>
         {% endfor %}
         {% if page.has_next %}
         <li class="page-item">
-            <a class="page-link" href="{{ paginator_url }}&page={{ page.next_page_number }}" aria-label="Next">
+            <a class="page-link" href="{{ paginator_url }}page={{ page.next_page_number }}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

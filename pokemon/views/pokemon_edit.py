@@ -18,8 +18,7 @@ def pokemon_create_view(request):
             instance.slug = slugify(instance.name)
             instance.save()
             return redirect('/pokemon/user/')
-
-    # template_name = '[nazev_app]/[nazev_modelu]_form.html'
+        
     return render(request, 'pokemon/pokemon_form.html', {'form': form})
 
 
