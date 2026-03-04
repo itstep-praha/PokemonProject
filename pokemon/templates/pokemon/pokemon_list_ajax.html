@@ -10,18 +10,15 @@
         // then pak reaguje na dokončený příslib a může s výsledkem něco dělat
 
         const loadButton = document.getElementById('load-button');
-        let dataUrl = '/pokemon-json/';
+        let dataUrl = '/example/pokemon/json-data/';
 
         loadButton.addEventListener('click', e => {
             fetch(dataUrl)
                 .then(resp => {
-                    // console.log(resp);
                     return resp.json();
                 })
                 .then(json => {
-                    // console.log(json);
                     const parent = document.getElementById('poke-list');
-                    // console.log(parent);
 
                     if (json.next) {
                         dataUrl = json.next;
@@ -30,7 +27,6 @@
                     }
                     
                     json.data.forEach(item => {
-                        // console.log(item);
                         const div = renderPokemon(item);
                         parent.appendChild(div);
                     });

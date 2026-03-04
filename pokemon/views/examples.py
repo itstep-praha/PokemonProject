@@ -24,7 +24,7 @@ def pokemon_list_json(request):
     if len(data) < per_page:
         next_url = None
     else:
-        next_url = '/pokemon-json/?startFrom=' + str(until)
+        next_url = '/example/pokemon/json-data/?startFrom=' + str(until)
 
     return JsonResponse({
         'data': data,

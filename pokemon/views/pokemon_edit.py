@@ -13,21 +13,19 @@ def pokemon_create_view(request):
         form = PokemonForm(request.POST, request.FILES)
 
         if form.is_valid():
-            instance = form.save(commit=False) # form.save() vrací instanci
+            instance = form.save(commit=False)
             instance.user = request.user
-            # zde se dají doplnit další atributy/fields pro instanaci
             instance.slug = slugify(instance.name)
             instance.save()
-            print('instance.pk:', instance.pk)
-            return redirect('/pokemon/user/') # redirect jestli to proběhlo v pořádku
+            return redirect('/pokemon/user/')
 
     # template_name = '[nazev_app]/[nazev_modelu]_form.html'
     return render(request, 'pokemon/pokemon_form.html', {'form': form})
 
 
 @login_required
-def pokemon_update_view(request, pokemon_id):
-    pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
+def pokemon_update_view(request, pokemon_slug):
+    pokemon = get_object_or_404(Pokemon, slug=pokemon_slug)
 
     if request.method == 'GET':
         form = PokemonForm(instance=pokemon)
@@ -42,13 +40,13 @@ def pokemon_update_view(request, pokemon_id):
 
 
 @login_required
-def create_comment(request, pokemon_id):
-    pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
+def create_comment(request, pokemon_slug):
+    pokemon = get_object_or_404(Pokemon, slug=pokemon_slug)
 
     comment_form = CommentForm(request.POST)
     if comment_form.is_valid():
         comment = comment_form.save(commit=False)
-        comment.pokemon_id = pokemon_id
+        comment.pokemon = pokemon
         comment.user = request.user
         comment.save()
 
