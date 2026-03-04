@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.templatetags.static import static
 
 User = get_user_model()
+IMAGE_PLACEHOLDER = static('pokemon/placeholder.svg')
 
 
 class Pokemon(models.Model):
@@ -16,6 +17,13 @@ class Pokemon(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        
+        return IMAGE_PLACEHOLDER
 
 
 class Category(models.Model):
