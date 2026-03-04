@@ -6,36 +6,47 @@
 
 
 {% block base_content %}
-<h1>{{ pokemon.name|capfirst }}</h1>
+<div class="row mb-3">
+    <div class="col-md-4">
+        <img src="{{ pokemon.image_url }}" alt="" class="img-thumbnail" width="475" height="475">
+    </div>
+    <div class="col-md-8">
+        <div class="h-100 border rounded pt-2 px-4 pb-3">
+            <div class="h-100 d-flex flex-column gap-3 justify-content-between">
+                <div>
+                    <h1>{{ pokemon.name|capfirst }}</h1>
+                    <div class="d-flex gap-2">
+                        {% for category in pokemon.categories.all %}
+                        <span class="badge" style="background: {{ category.color.bg }}; color: {{ category.color.text }};">{{ category.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
 
-<div class="d-flex gap-2">
-    {% for category in pokemon.categories.all %}
-    <span class="badge" style="background: {{ category.color.bg }}; color: {{ category.color.text }};">{{ category.name }}</span>
-    {% endfor %}
+                <div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Add comment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
-{% if pokemon.image %}
-<div class="my-2">
-    <img src="{{ pokemon.image.url }}" alt="" class="img-thumbnail" width="475" height="475">
-</div>
-
-{% endif %}
-
-<ul>
+<div class="list-group">
     {% for comment in pokemon.comments.all %}
-    <li>
-        {{ comment.user }} |
-        {{ comment.text }} |
-        {{ comment.create_dt }}
-    </li>
+    <div class="list-group-item py-3">
+        <div class="d-flex gap-2 justify-content-between">
+            <div>
+                <h6 class="mb-0">Comment by {{ comment.user }}</h6>
+                <p class="mb-0 text-body-secondary">{{ comment.text }}</p>
+            </div>
+            <small class="text-body-tertiary text-nowrap">{{ comment.create_dt|timesince }} ago</small>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-light text-center">No comments yet.</div>
     {% endfor %}
-</ul>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Add comment
-</button>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
