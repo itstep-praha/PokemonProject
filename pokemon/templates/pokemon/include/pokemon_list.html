@@ -13,7 +13,7 @@
                 {% endfor %}
             </div>
         </div>
-        <a class="stretched-link" href="/pokemon/{{ pokemon.slug }}/" aria-label="{{ pokemon.name }}"></a>
+        <a class="stretched-link" href="{{ pokemon.get_absolute_url }}" aria-label="{{ pokemon.name }}"></a>
     </div>
 </div>
 {% endfor %}

@@ -2,4 +2,10 @@
 
 {% block base_content %}
 <h1>Index page</h1>
+
+
+<div>{% url 'user_pokemon_list' %}</div>
+<div>{% url 'pokemon_create_comment' pokemon_slug='pikachu' %}</div>
+
+
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.templatetags.static import static
+from django.urls import reverse
 
 User = get_user_model()
 IMAGE_PLACEHOLDER = static('pokemon/placeholder.svg')
@@ -24,6 +25,9 @@ class Pokemon(models.Model):
             return self.image.url
         
         return IMAGE_PLACEHOLDER
+
+    def get_absolute_url(self):
+        return reverse('pokemon_detail', kwargs={'pokemon_slug': self.slug})
 
 
 class Category(models.Model):
